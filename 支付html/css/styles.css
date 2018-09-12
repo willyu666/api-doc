@@ -164,21 +164,7 @@ Primary style
           box-sizing: border-box;
 }
 
-html {
-  font-size: 62.5%;
-}
 
-body {
-  font-size: 1.6rem;
-  font-family: "Bitter", sans-serif;
-  color: #f5f4ed;
-  background-color: #795d6b;
-}
-
-a {
-  color: #e86256;
-  text-decoration: none;
-}
 
 /* -------------------------------- 
 
@@ -187,33 +173,6 @@ Back to Top - by CodyHouse.co
 -------------------------------- */
 
 
-@media only screen and (min-width: 1024px) {
-  header {
-    height: 200px;
-  }
-  header h1 {
-    font-size: 3rem;
-  }
-}
-
-main {
-  width: 90%;
-  max-width: 768px;
-  margin: 2em auto;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-main p {
-  line-height: 1.6;
-  margin: 2em 0;
-}
-
-@media only screen and (min-width: 1024px) {
-  main p {
-    font-size: 2rem;
-  }
-}
 
 .cd-top {
   display: inline-block;
