@@ -193,7 +193,7 @@
 	<div class="doc-title-box">
 			<h2 style="font-weight: bold;">extra参数说明</h2>
 	</div>
-	<p>1 当请求参数channelId = WX_JSAPI（微信公众号支付）时，openId参数必填，对应用户所在微信公众号的openId。</p>
+	<p>1 当请求参数<font style="color:red">channelId = WX_JSAPI</font>（微信公众号支付）时，openId参数必填，对应用户所在微信公众号的openId。</p>
 	<p><pre>{"openId":"o2RvowBf7sOVJf8kJksUEMceaDqo","isNeedSubAppId":1}</pre></p>
 	<p>2 当请求参数channelId = WX_MWEB（微信H5/APP支付）时，sceneInfo参数必填。参考值：</p>
 	<p>◆ IOS移动应用</p>
@@ -204,11 +204,247 @@
 	<p>{“h5_info”: //h5支付固定传”h5_info”{“type”: “”, //场景类型 “wap_url”:””,//WAP网站URL地址”wap_name”: “” //WAP 网站名 }}</p>
 	<p><pre>{"sceneInfo":"{\"h5_info\": \"h5_info\"  {\"type\": \"\",  \"wap_url\": \"\", \"wap_name\": \"\"}}"}</pre></p>
 	
-	<p>3 当请求参数channelId = WX_NATIVE （微信原生扫码支付）时，productId参数必填，对应业务系统定义的商品ID。</p>
+	<p>3 当请求参数<font style="color:red">channelId = WX_NATIVE</font> （微信原生扫码支付）时，productId参数必填，对应业务系统定义的商品ID。</p>
 	<p><pre>{"productId":"120989823"}</pre></p>
+	<div class="doc-title-box">
+			<h2 style="font-weight: bold;">返回结果</h2>
+	</div>
+	<style type="text/css">
+.tg  {border-collapse:collapse;border-spacing:0;border-color:#ccc;}
+.tg td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:#ccc;color:#333;background-color:#fff;}
+.tg th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:#ccc;color:#333;background-color:#f0f0f0;}
+.tg .tg-hx12{font-weight:bold;background-color:#efefef;border-color:#c0c0c0;text-align:left;vertical-align:top}
+.tg .tg-bx42{font-weight:bold;border-color:#c0c0c0;text-align:left;vertical-align:top}
+.tg .tg-855q{background-color:#ffffff;border-color:#c0c0c0;text-align:left;vertical-align:top}
+.tg .tg-wo29{border-color:#c0c0c0;text-align:left;vertical-align:top}
+</style>
+<table class="tg">
+  <tr>
+    <th class="tg-hx12">字段名</th>
+    <th class="tg-bx42">变量名</th>
+    <th class="tg-bx42">必填</th>
+    <th class="tg-bx42">类型</th>
+    <th class="tg-bx42">示例值</th>
+    <th class="tg-bx42">描述</th>
+  </tr>
+  <tr>
+    <td class="tg-855q">返回状态码</td>
+    <td class="tg-wo29">retCode</td>
+    <td class="tg-wo29">是</td>
+    <td class="tg-wo29">String(16)</td>
+    <td class="tg-wo29">SUCCESS</td>
+    <td class="tg-wo29">SUCCESS/FAIL此字段是通信标识，非交易标识，交易是否成功需要查看resCode来判断</td>
+  </tr>
+  <tr>
+    <td class="tg-855q">返回信息</td>
+    <td class="tg-wo29">retMsg</td>
+    <td class="tg-wo29">否</td>
+    <td class="tg-wo29">String(128)</td>
+    <td class="tg-wo29">签名失败</td>
+    <td class="tg-wo29">返回信息，如非空，为错误原因 签名失败 参数格式校验错误</td>
+  </tr>
+</table>
+<p></p>
+	<p>以下字段在retCode为SUCCESS的时候有返回</p>
+
+<table class="tg">
+  <tr>
+    <th class="tg-hx12">字段名</th>
+    <th class="tg-bx42">变量名</th>
+    <th class="tg-bx42">必填</th>
+    <th class="tg-bx42">类型</th>
+    <th class="tg-bx42">示例值</th>
+    <th class="tg-bx42">描述</th>
+  </tr>
+  <tr>
+    <td class="tg-855q">业务结果</td>
+    <td class="tg-wo29">resCode</td>
+    <td class="tg-wo29">是</td>
+    <td class="tg-wo29">String(16)</td>
+    <td class="tg-wo29">SUCCESS</td>
+    <td class="tg-wo29">SUCCESS/FAIL</td>
+  </tr>
+  <tr>
+    <td class="tg-855q">错误代码</td>
+    <td class="tg-wo29">errCode</td>
+    <td class="tg-wo29">否</td>
+    <td class="tg-wo29">String(32)</td>
+    <td class="tg-wo29">SYSTEMERROR</td>
+    <td class="tg-wo29">错误码</td>
+  </tr>
+  <tr>
+    <td class="tg-0lax">错误代码描述</td>
+    <td class="tg-0lax">errCodeDes</td>
+    <td class="tg-0lax">否</td>
+    <td class="tg-0lax">String(128)</td>
+    <td class="tg-0lax">系统错误</td>
+    <td class="tg-0lax">结果信息描述</td>
+  </tr>
+</table>
+<p></p>
+<p>以下字段在retCode和resCode都为SUCCESS的时候有返回</p>
+
+<table class="tg">
+  <tr>
+    <th class="tg-hx12">字段名</th>
+    <th class="tg-bx42">变量名</th>
+    <th class="tg-bx42">必填</th>
+    <th class="tg-bx42">类型</th>
+    <th class="tg-bx42">示例值</th>
+    <th class="tg-bx42">描述</th>
+  </tr>
+  <tr>
+    <td class="tg-855q">支付订单号</td>
+    <td class="tg-wo29">payOrderId</td>
+    <td class="tg-wo29">是</td>
+    <td class="tg-wo29">String(32)</td>
+    <td class="tg-wo29">20160427210604000490</td>
+    <td class="tg-wo29">支付中心生成的订单号</td>
+  </tr>
+  <tr>
+    <td class="tg-855q">预支付标识</td>
+    <td class="tg-wo29">prepayId</td>
+    <td class="tg-wo29">否</td>
+    <td class="tg-wo29">String(64)</td>
+    <td class="tg-wo29">wx201410272009395522657a690389285100</td>
+    <td class="tg-wo29">第三方支付公司返回的预支付标识</td>
+  </tr>
+  <tr>
+    <td class="tg-0lax">跳转第三方支付URl</td>
+    <td class="tg-0lax">payUrl</td>
+    <td class="tg-0lax">否</td>
+    <td class="tg-0lax">String(200)</td>
+    <td class="tg-0lax">http://url</td>
+    <td class="tg-0lax">支付中心生生成跳转第三方支付页面的URL地址</td>
+  </tr>
+  <tr>
+    <td class="tg-0lax">跳转第三方支付方法</td>
+    <td class="tg-0lax">payAction</td>
+    <td class="tg-0lax">否</td>
+    <td class="tg-0lax">String(20)</td>
+    <td class="tg-0lax">POST</td>
+    <td class="tg-0lax">跳转第三方支付页面要求的方法</td>
+  </tr>
+  <tr>
+    <td class="tg-0lax">跳转第三方支付参数</td>
+    <td class="tg-0lax">payParams</td>
+    <td class="tg-0lax">否</td>
+    <td class="tg-0lax">String(500)</td>
+    <td class="tg-0lax"></td>
+    <td class="tg-0lax">该字段不参与签名,当payAction=POST时,该参数有值,JSON格式数据,跳转第三方支付页面需要传递的参数</td>
+  </tr>
+</table>
+<p></p>
+<p>当请求参数<font style="color:red">channelId=WX_JSAPI</font>（微信公众号支付）时，回JSON格式数据，如：</p>
+
+<p><pre>{
+    "sign": "24F5916D6B1AB64918B3BF7250693813", 
+    "payOrderId": "P2016081612553098759124940", 
+    "retCode": "SUCCESS", 
+    "retMsg": "", 
+    "resCode": "SUCCESS", 
+    "prepayId": "wx201608161255321fc59e085b0578219742",
+    "payParams": {
+        "appId": "wx0ab67caf7f591834", 
+        "timeStamp": 1471323332, 
+        "signType": "MD5", 
+        "package": "prepay_id=wx201608161255321fc59e085b0578219742", 
+        "nonceStr": "08s06nujam43aot3tbl555lavvydl178", 
+        "paySign": "21E6BF4984030DBD2DB191F676A47DA2"
+    }
+}</pre></p>
+
+<table class="tg">
+  <tr>
+    <th class="tg-hx12">字段名</th>
+    <th class="tg-bx42">变量名</th>
+    <th class="tg-bx42">必填</th>
+    <th class="tg-bx42">类型</th>
+    <th class="tg-bx42">示例值</th>
+    <th class="tg-bx42">描述</th>
+  </tr>
+  <tr>
+    <td class="tg-0pky">微信签名</td>
+    <td class="tg-0pky">paySign</td>
+    <td class="tg-0pky">是</td>
+    <td class="tg-0pky">String(32)</td>
+    <td class="tg-0pky">C380BEC2BFD727A4B6845133519F3AD6</td>
+    <td class="tg-0pky">签名,详见签名算法,调取微信支付时用到的签名值</td>
+  </tr>
+  <tr>
+    <td class="tg-855q">应用ID</td>
+    <td class="tg-wo29">appId</td>
+    <td class="tg-wo29">是</td>
+    <td class="tg-wo29">String(32)</td>
+    <td class="tg-wo29">wx8888888888888888</td>
+    <td class="tg-wo29">微信开放平台审核通过的应用APPID</td>
+  </tr>
+  <tr>
+    <td class="tg-855q">签名算法</td>
+    <td class="tg-wo29">signType</td>
+    <td class="tg-wo29">是</td>
+    <td class="tg-wo29">String(32)</td>
+    <td class="tg-wo29">1900000109</td>
+    <td class="tg-wo29">签名算法，暂支持MD5</td>
+  </tr>
+  <tr>
+    <td class="tg-0pky">预支付交易会话标识</td>
+    <td class="tg-0pky">package</td>
+    <td class="tg-0pky">是</td>
+    <td class="tg-0pky">String(128)</td>
+    <td class="tg-0pky">prepay_id=wx201608161255321fc59e085b0578219742</td>
+    <td class="tg-0pky">微信生成的预支付回话标识，用于后续接口调用中使用，该值有效期为2小时,针对H5支付此参数无特殊用途</td>
+  </tr>
+  <tr>
+    <td class="tg-0pky">随机字符串</td>
+    <td class="tg-0pky">nonceStr</td>
+    <td class="tg-0pky">是</td>
+    <td class="tg-0pky">String(32)</td>
+    <td class="tg-0pky">5K8264ILTKCH16CQ2502SI8ZNMTM67VS</td>
+    <td class="tg-0pky">随机字符串，不长于32位</td>
+  </tr>
+  <tr>
+    <td class="tg-0pky">时间戳</td>
+    <td class="tg-0pky">timeStamp</td>
+    <td class="tg-0pky">是</td>
+    <td class="tg-0pky">String(10)</td>
+    <td class="tg-0pky">1412000000</td>
+    <td class="tg-0pky">时间戳,10位</td>
+  </tr>
+</table>
+<p></p>
+<p>当请求参数<font color="red">channelId=WX_NATIVE</font>（微信公众号扫码支付）时，回JSON格式数据如：</p>
+
+<table class="tg">
+  <tr>
+    <th class="tg-hx12">字段名</th>
+    <th class="tg-bx42">变量名</th>
+    <th class="tg-bx42">必填</th>
+    <th class="tg-bx42">类型</th>
+    <th class="tg-bx42">示例值</th>
+    <th class="tg-bx42">描述</th>
+  </tr>
+  <tr>
+    <td class="tg-0pky">二维码链接</td>
+    <td class="tg-0pky">codeUrl</td>
+    <td class="tg-0pky">否</td>
+    <td class="tg-0pky">String(200)</td>
+    <td class="tg-0pky">weixin://wxpay/s/Anp43md</td>
+    <td class="tg-0pky">可将该参数值生产二维码展示</td>
+  </tr>
+</table>
+
+     <div class="doc-title-box">
+			<h2 style="font-weight: bold;">返回错误</h2>
+	</div>
+	<p>更多返回错误代码请看<a href="./errorcode.html">这里</a>的错代码描述</p>
+	
 	</section>
 	</div>
 	
+	
+	<a href="#0" class="cd-top js-cd-top">Top</a>
+	<script src="js/main.js"></script> 
 	<script src="js/jquery-2.1.1.min.js" type="text/javascript"></script>
 	<script>
 	$('.openNav').click(function () {
