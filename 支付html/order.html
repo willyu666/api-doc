@@ -31,6 +31,7 @@
 		<a href="./orderquery.html"><li>订单查询</li></a>
 		<a href="./payresult.html"><li>支付结果通知</li></a>
 		<a href="./errorcode.html"><li>全局错误代码</li></a>
+		<a href="./getip.html"><li>获取clientIP</li></a>
 		<li>下载</li>
 	  </ul>
 	</nav>
@@ -50,8 +51,17 @@
 	<div class="doc-title-box">
 			<h2 style="font-weight: bold;">统一下单</h2>
 		</div>
-     <p>业务通过统一下单接口可以发起任意三方支付渠道的支付订单。业务系统不必关心该如何调用三方支付，统一下单接口会根据业务系统选择的支付渠道ID，选择对应支付渠道的支付产品，发起下单请求，然后响应给业务系统支付请求所需参数。</p>
-	 <p><img src="./imgs/process.png" alt="流程图" style="width:900px;height:700px;"></p>
+     <p>业务通过统一下单接口可以发起任意三方支付(微信支付宝支付系统)渠道的支付订单。业务系统不必关心该如何调用三方支付，统一下单接口会根据业务系统选择的支付渠道ID，选择对应支付渠道的支付产品，发起下单请求，然后响应给业务系统支付请求所需参数。</p>	 
+	 <p>对于商户APP，商户发送支付请求到支付中心后，支付中心向商户返回加密数据且不向三方支付发送消息。商户利用接收到的加密数据调用三方支付的SDK，向三方支付发起支付请求。当支付中心收到三方支付
+	 的支付消息后，支付中心通知商户支付结果。</p>
+	 <p><img src="./imgs/process.png" alt="流程图" style="width:800px;height:650px;"></p>
+	  <p><img src="./imgs/process1.png" alt="商户APP交互流程图" style="width:800px;height:650px;"></p>
+	  <p>关于微信支付宝的更多文档请访问如下链接：</p>
+	  <p><a href="https://global.alipay.com/service/app_split_cn/6">支付宝SDK文档</a>
+	  <a style="padding-left: 15px;" href="https://pay.weixin.qq.com/wiki/doc/api/app/app_sl.php?chapter=11_1">支付宝官方实例代码</a>
+	  </br>
+	  <a href="https://pay.weixin.qq.com/wiki/doc/api/app/app_sl.php?chapter=8_1">微信支付SDK文档</a>
+	  <a style="padding-left: 15px;" href="https://global.alipay.com/service/app_split_cn/20">微信官方实例代码</a></p>
 	 <div class="doc-title-box">
 			<h2 style="font-weight: bold;">请求URL</h2>
 	 </div>
@@ -62,138 +72,143 @@
 	 <div class="doc-title-box">
 			<h2 style="font-weight: bold;">参数</h2>
 	 </div>	
-			
-		<table class="tg">
-		  <tr>
-			<th class="tg-krjj">字段名</th>
-			<th class="tg-krjj">变量名</th>
-			<th class="tg-krjj">必填</th>
-			<th class="tg-krjj">类型</th>
-			<th class="tg-u4qj">示例值</th>
-			<th class="tg-u4qj">描述</th>
-		  </tr>
-		  <tr>
-			<td class="tg-tmsl">商户ID</td>
-			<td class="tg-tmsl">mchId</td>
-			<td class="tg-tmsl">是</td>
-			<td class="tg-tmsl">String(30)</td>
-			<td class="tg-855q">20001222</td>
-			<td class="tg-855q">支付中心分配的商户号</td>
-		  </tr>
-		  <tr>
-			<td class="tg-xggu">商户订单号</td>
-			<td class="tg-xggu">mchOrderNo</td>
-			<td class="tg-xggu">是</td>
-			<td class="tg-xggu">String(30)</td>
-			<td class="tg-wo29">20160427210604000490</td>
-			<td class="tg-wo29">商户生成的订单号，请保证唯一性</td>
-		  </tr>
-		  <tr>
-			<td class="tg-tmsl">渠道ID</td>
-			<td class="tg-tmsl">channelId</td>
-			<td class="tg-tmsl">是</td>
-			<td class="tg-tmsl">String(24)</td>
-			<td class="tg-855q">WX_JSAPI</td>
-			<td class="tg-855q">见支付渠道参数</td>
-		  </tr>
-		  <tr>
-			<td class="tg-xggu">币种</td>
-			<td class="tg-xggu">currency</td>
-			<td class="tg-xggu">是</td>
-			<td class="tg-xggu">String(3)</td>
-			<td class="tg-wo29">CAD</td>
-			<td class="tg-wo29">三位货币代码,加币:CAD</td>
-		  </tr>
-		  <tr>
-			<td class="tg-tmsl">支付金额</td>
-			<td class="tg-tmsl">amount</td>
-			<td class="tg-tmsl">是</td>
-			<td class="tg-tmsl">int</td>
-			<td class="tg-855q">100</td>
-			<td class="tg-855q">支付金额,单位分</td>
-		  </tr>
-		  <tr>
-			<td class="tg-xggu">客户端IP</td>
-			<td class="tg-xggu">clientIp</td>
-			<td class="tg-xggu">是</td>
-			<td class="tg-xggu">String(32)</td>
-			<td class="tg-wo29">210.73.10.148</td>
-			<td class="tg-wo29">客户端IP地址</td>
-		  </tr>
-		  <tr>
-			<td class="tg-tmsl">设备</td>
-			<td class="tg-tmsl">device</td>
-			<td class="tg-tmsl">否</td>
-			<td class="tg-tmsl">String(64)</td>
-			<td class="tg-855q">WEB</td>
-			<td class="tg-855q">终端设备号(门店号或收银设备ID)，注意：PC网页或公众号内支付请传”WEB</td>
-		  </tr>
-		  <tr>
-			<td class="tg-u4qj">支付结果回调URL</td>
-			<td class="tg-u4qj">notifyUrl</td>
-			<td class="tg-u4qj">是</td>
-			<td class="tg-u4qj">String(200)</td>
-			<td class="tg-wo29">http://xxx.com/notify.htm</td>
-			<td class="tg-wo29">支付结果回调URL</td>
-		  </tr>
-		  <tr>
-			<td class="tg-855q">商品主题</td>
-			<td class="tg-855q">subject</td>
-			<td class="tg-855q">是</td>
-			<td class="tg-855q">String(64)</td>
-			<td class="tg-855q">测试商品</td>
-			<td class="tg-855q">商品主题</td>
-		  </tr>
-		  <tr>
-			<td class="tg-u4qj">商品描述信息</td>
-			<td class="tg-u4qj">body</td>
-			<td class="tg-u4qj">是</td>
-			<td class="tg-u4qj">String(256)</td>
-			<td class="tg-wo29">xxpay测试商品描述</td>
-			<td class="tg-wo29">商品描述信息</td>
-		  </tr>
-		  <tr>
-			<td class="tg-855q">扩展参数1</td>
-			<td class="tg-855q">param1</td>
-			<td class="tg-855q">否</td>
-			<td class="tg-855q">String(64)</td>
-			<td class="tg-855q"></td>
-			<td class="tg-855q">支付中心回调时会原样返回</td>
-		  </tr>
-		  <tr>
-			<td class="tg-wo29">扩展参数2</td>
-			<td class="tg-wo29">param2</td>
-			<td class="tg-wo29">否</td>
-			<td class="tg-wo29">String(64)</td>
-			<td class="tg-wo29"></td>
-			<td class="tg-wo29">支付中心回调时会原样返回</td>
-		  </tr>
-		  <tr>
-			<td class="tg-855q">附加参数</td>
-			<td class="tg-855q">extra</td>
-			<td class="tg-855q">是</td>
-			<td class="tg-855q">String(512)</td>
-			<td class="tg-855q">{“openId”:”o2RvowBf7sOVJf8kJksUEMceaDqo”}</td>
-			<td class="tg-855q">特定渠道发起时额外参数,见下面说明</td>
-		  </tr>
-		  <tr>
-			<td class="tg-wo29">签名</td>
-			<td class="tg-wo29">sign</td>
-			<td class="tg-wo29">是</td>
-			<td class="tg-wo29">String(32)</td>
-			<td class="tg-wo29">C380BEC2BFD727A4B6845133519F3AD6</td>
-			<td class="tg-wo29">签名值，详见签名算法</td>
-		  </tr>
-		</table>
+		<style type="text/css">
+.tg  {border-collapse:collapse;border-spacing:0;}
+.tg td{font-family:Arial, sans-serif;font-size:14px;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:black;}
+.tg th{font-family:Arial, sans-serif;font-size:14px;font-weight:normal;padding:10px 5px;border-style:solid;border-width:1px;overflow:hidden;word-break:normal;border-color:black;}
+.tg .tg-hx12{font-weight:bold;background-color:#efefef;border-color:#c0c0c0;text-align:left;vertical-align:top}
+.tg .tg-krjj{font-weight:bold;background-color:#efefef;border-color:#c0c0c0;text-align:left}
+.tg .tg-wo29{border-color:#c0c0c0;text-align:left;vertical-align:top}
+.tg .tg-u4qj{background-color:#efefef;border-color:#c0c0c0;text-align:left;vertical-align:top}
+</style>
+<table class="tg">
+  <tr>
+    <th class="tg-krjj">字段名</th>
+    <th class="tg-hx12">变量名</th>
+    <th class="tg-hx12">必填</th>
+    <th class="tg-hx12">类型</th>
+    <th class="tg-hx12">示例值</th>
+    <th class="tg-hx12">描述</th>
+  </tr>
+  <tr>
+    <td class="tg-wo29">商户ID</td>
+    <td class="tg-wo29">mchId</td>
+    <td class="tg-wo29">是</td>
+    <td class="tg-wo29">String(30)</td>
+    <td class="tg-wo29">20001222</td>
+    <td class="tg-wo29">支付中心分配的商户号</td>
+  </tr>
+  <tr>
+    <td class="tg-u4qj">商户订单号</td>
+    <td class="tg-u4qj">mchOrderNo</td>
+    <td class="tg-u4qj">是</td>
+    <td class="tg-u4qj">String(30)</td>
+    <td class="tg-u4qj">20160427210604000490</td>
+    <td class="tg-u4qj">商户生成的订单号，请保证唯一性</td>
+  </tr>
+  <tr>
+    <td class="tg-wo29">渠道ID</td>
+    <td class="tg-wo29">channelId</td>
+    <td class="tg-wo29">是</td>
+    <td class="tg-wo29">String(24)</td>
+    <td class="tg-wo29">WX_JSAPI</td>
+    <td class="tg-wo29">见支付渠道参数</td>
+  </tr>
+  <tr>
+    <td class="tg-u4qj">币种</td>
+    <td class="tg-u4qj">currency</td>
+    <td class="tg-u4qj">是</td>
+    <td class="tg-u4qj">String(3)</td>
+    <td class="tg-u4qj">CAD</td>
+    <td class="tg-u4qj">三位货币代码,加币:CAD</td>
+  </tr>
+  <tr>
+    <td class="tg-wo29">支付金额</td>
+    <td class="tg-wo29">amount</td>
+    <td class="tg-wo29">是</td>
+    <td class="tg-wo29">int</td>
+    <td class="tg-wo29">100</td>
+    <td class="tg-wo29">支付金额,单位分</td>
+  </tr>
+  <tr>
+    <td class="tg-u4qj">客户端IP</td>
+    <td class="tg-u4qj">clientIp</td>
+    <td class="tg-u4qj">是</td>
+    <td class="tg-u4qj">String(32)</td>
+    <td class="tg-u4qj">210.73.10.148</td>
+    <td class="tg-u4qj">客户端IP地址</td>
+  </tr>
+  <tr>
+    <td class="tg-wo29">设备</td>
+    <td class="tg-wo29">device</td>
+    <td class="tg-wo29">否</td>
+    <td class="tg-wo29">String(64)</td>
+    <td class="tg-wo29">WEB</td>
+    <td class="tg-wo29">终端设备号(门店号或收银设备ID)，注意：PC网页或公众号内支付请传”WEB</td>
+  </tr>
+  <tr>
+    <td class="tg-u4qj">支付结果回调URL</td>
+    <td class="tg-u4qj">notifyUrl</td>
+    <td class="tg-u4qj">是</td>
+    <td class="tg-u4qj">String(200)</td>
+    <td class="tg-u4qj">http://xxx.com/notify.htm</td>
+    <td class="tg-u4qj">支付结果回调URL</td>
+  </tr>
+  <tr>
+    <td class="tg-wo29">商品主题</td>
+    <td class="tg-wo29">subject</td>
+    <td class="tg-wo29">是</td>
+    <td class="tg-wo29">String(64)</td>
+    <td class="tg-wo29">测试商品</td>
+    <td class="tg-wo29">商品主题</td>
+  </tr>
+  <tr>
+    <td class="tg-u4qj">商品描述信息</td>
+    <td class="tg-u4qj">body</td>
+    <td class="tg-u4qj">是</td>
+    <td class="tg-u4qj">String(256)</td>
+    <td class="tg-u4qj">xxpay测试商品描述</td>
+    <td class="tg-u4qj">商品描述信息</td>
+  </tr>
+  <tr>
+    <td class="tg-wo29">扩展参数1</td>
+    <td class="tg-wo29">param1</td>
+    <td class="tg-wo29">否</td>
+    <td class="tg-wo29">String(64)</td>
+    <td class="tg-wo29"></td>
+    <td class="tg-wo29">支付中心回调时会原样返回</td>
+  </tr>
+  <tr>
+    <td class="tg-u4qj">扩展参数2</td>
+    <td class="tg-u4qj">param2</td>
+    <td class="tg-u4qj">否</td>
+    <td class="tg-u4qj">String(64)</td>
+    <td class="tg-u4qj"></td>
+    <td class="tg-u4qj">支付中心回调时会原样返回</td>
+  </tr>
+  <tr>
+    <td class="tg-wo29">附加参数</td>
+    <td class="tg-wo29">extra</td>
+    <td class="tg-wo29">是</td>
+    <td class="tg-wo29">String(512)</td>
+    <td class="tg-wo29">{“openId”:”o2RvowBf7sOVJf8kJksUEMceaDqo”}</td>
+    <td class="tg-wo29">特定渠道发起时额外参数,见下面说明</td>
+  </tr>
+  <tr>
+    <td class="tg-u4qj">签名</td>
+    <td class="tg-u4qj">sign</td>
+    <td class="tg-u4qj">是</td>
+    <td class="tg-u4qj">String(32)</td>
+    <td class="tg-u4qj">C380BEC2BFD727A4B6845133519F3AD6</td>
+    <td class="tg-u4qj">签名值，详见签名算法</td>
+  </tr>
+</table>	
+		
 	<div class="doc-title-box">
 			<h2 style="font-weight: bold;">参数示例</h2>
 	</div>
-	<p><pre>
-	params={"amount":1,"mchId":"10000000","mchOrderNo":"9af01329f1ec4c4694631b077a0e8573","subject":"商品支付主题",
-	"sign":"F64C43C1487C7C0DA93DA93DD2961FA2","body":"商品支付内容","param1":"","param2":"","clientIp":"127.0.0.1","extra":"
-	{\"openId\":\"osirq1MMdgrCw7ohNNV6JhwvDFO8\"}","notifyUrl":"http://ngrok.4jicao.com/goods/payNotify",
-	"currency":"CAD","device":"WEB","channelId":"WX_JSAPI"}
-	</pre>
+	<p><textarea style="width:800px;height:150px; background:#f5f5f5;border: 1px dotted #785;">params={"amount":1,"mchId":"10000000","mchOrderNo":"9af01329f1ec4c4694631b077a0e8573","subject":"商品支付主题","sign":"F64C43C1487C7C0DA93DA93DD2961FA2","body":"商品支付内容","param1":"","param2":"","clientIp":"127.0.0.1","extra":"{\"openId\":\"osirq1MMdgrCw7ohNNV6JhwvDFO8\"}","notifyUrl":"http://ngrok.4jicao.com/goods/payNotify","currency":"CAD","device":"WEB","channelId":"WX_JSAPI"}
+	</textarea>
 	</p>
 	<div class="doc-title-box">
 			<h2 style="font-weight: bold;">extra参数说明</h2>
